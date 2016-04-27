@@ -1,3 +1,7 @@
+[core]
+    editor = nvim
+    autoctrlf = input
+    safecrlf = true
 [push]
         default = simple
 [alias]
@@ -15,8 +19,8 @@
     ignore = "!gi() { curl https://www.gitignore.io/api/$@ ;}; gi"
     publish = "!git push -u origin $(git branch-name)"
 [user]
-	email = arusahni@gmail.com
-	name = Aru Sahni
+	email = yura.sid@gmail.com
+	name = Yurii Sydoriak
 [color]
 	ui = auto
 [color "branch"]
