@@ -1,6 +1,6 @@
 call plug#begin('~/.vim/plugged')
 "common
-Plug 'freitass/todo.txt-vim'
+" Plug 'freitass/todo.txt-vim'
 Plug 'Valloric/YouCompleteMe'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
@@ -16,6 +16,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vimwiki/vimwiki'
+Plug 'tpope/vim-surround' 
+
 "HTML
 Plug 'gregsexton/MatchTag', { 'for': ['html', 'javascript'] }
 Plug 'mattn/emmet-vim', { 'for': ['html', 'javascript', 'css'] }
@@ -65,8 +67,8 @@ set background=dark
 colorscheme gruvbox
 let g:vimwiki_list = [{'path': '$HOME/Dropbox/wiki'}]
 
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
 set expandtab
 set autoindent
 set number
@@ -94,6 +96,9 @@ let g:mapleader = ','
 " Show “invisible” characters
 set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
 set list
+
+" highlight cursor line
+set cursorline
 
 set noerrorbells                " No beeps
 set novisualbell
@@ -125,9 +130,9 @@ set showmatch " show matching braces
 let g:airline_powerline_fonts=1
 let g:airline_left_sep=''
 let g:airline_right_sep=''
-let g:airline_theme='bubblegum'
+let g:airline_theme= 'bubblegum'
 
-inoremap jj <Esc>
+inoremap jk <Esc>
 
 " My key maps {{{
     " Cancel hlsearch by pressing double <SPACE>
