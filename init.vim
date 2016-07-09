@@ -1,74 +1,90 @@
+set encoding=utf-8
+" Plugins {{{
 call plug#begin('~/.vim/plugged')
+" Font
+Plug 'ryanoasis/vim-devicons'
+" Editor config plugin
+" Plug 'editorconfig/editorconfig-vim'
 "common
-" Plug 'freitass/todo.txt-vim'
+Plug 'freitass/todo.txt-vim'
 Plug 'Valloric/YouCompleteMe'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'easymotion/vim-easymotion'
+" Plug 'easymotion/vim-easymotion'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'gmarik/Vundle.vim'
+" Plug 'gmarik/Vundle.vim'
 Plug 'jiangmiao/auto-pairs'
-Plug 'majutsushi/tagbar'
-Plug 'scrooloose/nerdcommenter'
+" Plug 'majutsushi/tagbar'
+" Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vimwiki/vimwiki'
-Plug 'tpope/vim-surround' 
+Plug 'tpope/vim-surround'
 
 "HTML
 Plug 'gregsexton/MatchTag', { 'for': ['html', 'javascript'] }
 Plug 'mattn/emmet-vim', { 'for': ['html', 'javascript', 'css'] }
 Plug 'othree/html5.vim', { 'for': ['html', 'javascript'] }
 Plug 'tpope/vim-haml', { 'for': 'haml'}
+
 "CSS/LESS
 Plug 'ap/vim-css-color', { 'for': ['css', 'scss', 'sass', 'less'] }
 Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'sass'] }
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'scss'] }
+
 "Jade
 Plug 'digitaltoad/vim-jade'
+
 " Handlebars
 Plug 'mustache/vim-mustache-handlebars'
-"JavaScript
+
+" TypeScript
+Plug 'leafgarland/typescript-vim', { 'for': 'typescript' } "JavaScript
+
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'maksimr/vim-jsbeautify', { 'for': 'javascript' }
 Plug 'wizicer/vim-jison', { 'for': 'jison' }
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'ternjs/tern_for_vim'
-Plug 'heavenshell/vim-jsdoc' " Plugin to genereate jsdoc type :JsDoc on
+" Plug 'heavenshell/vim-jsdoc' " Plugin to genereate jsdoc type :JsDoc on
                              " on function line
 "Themes
-Plug 'altercation/vim-colors-solarized'
-Plug 'flazz/vim-colorschemes'
+" Plug 'sickill/vim-monokai'
+" Plug 'altercation/vim-colors-solarized'
+" Plug 'flazz/vim-colorschemes'
 Plug 'morhetz/gruvbox'
-Plug 'ryanoasis/vim-devicons'
-Plug 'chriskempson/vim-tomorrow-theme'
+" Plug 'ryanoasis/vim-devicons'
+" Plug 'chriskempson/vim-tomorrow-theme'
 "Markdown
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 "Go lang
-Plug 'fatih/vim-go', { 'for': 'go' }
-Plug 'nsf/gocode',  { 'for': 'go' }
+" Plug 'fatih/vim-go', { 'for': 'go' }
+" Plug 'nsf/gocode',  { 'for': 'go' }
 "Ruby
-Plug 'tpope/vim-bundler', { 'for': 'ruby' }
-Plug 'tpope/vim-rails', { 'for': 'ruby' }
-Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
+" Plug 'tpope/vim-bundler', { 'for': 'ruby' }
+" Plug 'tpope/vim-rails', { 'for': 'ruby' }
+" Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 " Check tool
 Plug 'scrooloose/syntastic'
 
 " Can comment all blick wiht ctrl-shift "-" "-"
 Plug 'tomtom/tcomment_vim'
 call plug#end()
-
+" }}}
+"
 " Settings
 set background=dark
 colorscheme gruvbox
 let g:vimwiki_list = [{'path': '$HOME/Dropbox/wiki'}]
 
-set tabstop=4
-set shiftwidth=4
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+
+set tabstop=2
+set shiftwidth=2
 set expandtab
 set autoindent
 set number
@@ -118,29 +134,46 @@ if os == 'Darwin' || os == 'Mac'
   set clipboard^=unnamedplus"
 endif
 
-" Searching
+" Config for ts checkers {{{
+let g:typescript_compiler_binary = 'tsc'
+let g:typescript_compiler_options = ''
+let g:typescript_indent_disable = 1
+autocmd FileType typescript :set makeprg=tsc
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
+" Remove trailing spaces before saving
+autocmd BufWritePre * :%s/\s\+$//e
+autocmd FileType c,cpp,java,php,js,jsx,ts autocmd BufWritePre <buffer> :%s/\s\+$//e
+" }}}
+
+" Searching {{{
 set ignorecase " case insensitive searching
 set smartcase " case-sensitive if expresson contains a capital letter
 set hlsearch
 set incsearch " set incremental search, like modern browsers
 
 set showmatch " show matching braces
-
-"Airline options
+" }}}
+"
+"Airline options {{{
 let g:airline_powerline_fonts=1
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline_theme= 'bubblegum'
-
+" }}}
+"
+" ESCAPE {{{
+" remap escape from terminal in neovim
+tnoremap <Esc> <C-\><C-n>
+" escape remap
 inoremap jk <Esc>
-
+" }}}
+"
 " My key maps {{{
     " Cancel hlsearch by pressing double <SPACE>
     nmap <SPACE> :noh <CR>
     " }}}
 
-" JsDoc plugin config
-"
 " JsDoc config {{{
   " underscore starting function is pivate
   let g:jsdoc_underscore_private=1
@@ -173,13 +206,14 @@ let g:syntastic_style_warning_symbol = '💩'
 
 let g:syntastic_ruby_checkers = ['rubocop', 'mri']
 let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_typescript_checkers = ['tsc']
 let g:syntastic_coffee_checkers = ['coffeelint']
 let g:syntastic_html_tidy_exec = 'tidy5'
 let g:syntastic_html_tidy_ignore_errors = [" proprietary attribute \"ng-"]
 let g:syntastic_haml_checkers = ['haml_lint']
-" let g:syntastic_mode_map = { 'mode': 'active',
-"                            \ 'active_filetypes': ['ruby', 'javascript', 'coffee', 'haml'],
-"                            \ 'passive_filetypes': ['html'] }
+let g:syntastic_mode_map = { 'mode': 'active',
+                           \ 'active_filetypes': ['ruby', 'javascript', 'coffee', 'haml'],
+                           \ 'passive_filetypes': ['html'] }
 
 highlight link SyntasticErrorSign        SignColumn
 highlight link SyntasticWarningSign      SignColumn
@@ -188,12 +222,16 @@ highlight link SyntasticStyleWarningSign SignColumn
 
 " }}}
 
+" Handlebars abreviations
+let g:mustache_abbreviations = 1
 
-"Open NERDTree with Ctrl-n
+"Open NERDTree with Ctrl-n {{{
 map <C-n> :NERDTreeToggle<CR>
 nmap <leader>ne :NERDTree<cr>
 nmap <leader>nt :NERDTree<cr>
 nmap <leader>nq :NERDTreeClose<cr>
+" }}}
+"
 "set timeout
 set timeoutlen=1000
 "set ttimeout
